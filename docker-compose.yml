@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  web_blog:
+    container_name: web-blog
+    build:
+      context: ./services/web-blog
+      dockerfile: Dockerfile
+    ports:
+      - 3069:3069
+    volumes:
+      - ./services/web-blog/:/go/src/app/
+

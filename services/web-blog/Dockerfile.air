@@ -1,0 +1,16 @@
+FROM golang:latest
+
+RUN apt update && apt upgrade -y && \
+    apt install -y git \
+    make openssh-client
+
+WORKDIR /go/src/app
+
+COPY . ./
+
+RUN go mod tidy && go mod verify
+
+RUN go get github.com/pilu/fresh
+RUN pwd
+
+CMD ["fresh"]
