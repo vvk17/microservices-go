@@ -27,7 +27,12 @@ func ConnectDB() {
 		log.Print("sql.Open error:")
 		log.Fatal(err.Error())
 	} else {
-		Database = DBInstance{Db: db}
-		log.Print("Connected Successfully")
+			if err := orm.RunSyncdb("default",false,true); err != nil {
+				log.Print("orm.RunSyncdb - error")
+				log.Fatal(err.Error())
+			} else { 
+				Database = DBInstance{Db: db}
+				log.Print("Connected Successfully")
+			}
 	}
 }
