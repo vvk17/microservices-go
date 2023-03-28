@@ -43,7 +43,22 @@ func AddAuthor (c *fiber.Ctx) error {
 }
 
 func GetAllAuthors (c *fiber.Ctx) error {
-	return c.SendString("All Authors")
+	response := utilities.GetBaseResponseObject()
+
+	qs := database.Database.Orm.QueryTable(models.Authors{}).OrderBy("-created_at")
+	var maps []orm.Params
+
+	if count, err := qs.Values(&maps, "id", "title"); err != nil {
+		response["error"] = err.Error()
+		return c.Status(fiber.StatusInternalServerError).JSON(response)
+	} else {
+		response["count"] = count
+		response["data"] = maps
+		response["status"] = "OK"
+		delete (response, "message")
+		return c.Status(fiber.StatusOK).JSON(response)
+	}
+
 }
 
 func GetSingleAuthor (c *fiber.Ctx) error {
