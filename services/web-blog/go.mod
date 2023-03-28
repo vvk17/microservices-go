@@ -1,4 +1,4 @@
-module microservices-go
+module github.com/vvk17/microservices-go/services/web-blog
 
 go 1.20
 
