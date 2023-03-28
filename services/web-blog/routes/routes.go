@@ -7,6 +7,7 @@ import (
 	"github.com/vvk17/microservices-go/services/web-blog/models"
 	"github.com/vvk17/microservices-go/services/web-blog/database"
 	"log"
+	"github.com/beego/beego/v2/client/orm"
 )
 
 func HelloMate (c *fiber.Ctx) error {
