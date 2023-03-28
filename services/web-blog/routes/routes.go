@@ -20,12 +20,12 @@ func AddAuthor (c *fiber.Ctx) error {
 
 	if err := c.BodyParser(postBody); err != nil {
 		response["error"] = err.Error()
-		log.Println("routes-AddAuthor BodyParser error", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(err)
+		log.Println("routes-AddAuthor BodyParser error", response)
+		return c.Status(fiber.StatusInternalServerError).JSON(response)
 	} else {
 		if err := validators.ValidateStruct(postBody); err != nil {
-			log.Println("routes-AddAuthor ValidateStruct error ", response)
-			return c.Status(fiber.StatusInternalServerError).JSON(response)
+			log.Println("routes-AddAuthor ValidateStruct error ", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(err)
 		} else {
 			author := models.Authors{Title: postBody.Title}
 			if _, err := database.Database.Orm.Insert(&author); err != nil {
