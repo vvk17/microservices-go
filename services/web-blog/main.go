@@ -31,6 +31,7 @@ func main() {
 }
 
 func SetupRoutes (app *fiber.App) {
+	app.Post("/author", routes.AddAuthor)
 	app.Get("/hello", routes.HelloMate)
 	app.Get("/authors", routes.GetAllAuthors)
 	app.Get("/author/:id", routes.GetSingleAuthor)

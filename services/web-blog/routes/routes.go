@@ -40,8 +40,6 @@ func AddAuthor (c *fiber.Ctx) error {
 			}
 		}
 	}
-
-	return c.SendString ("AddAuthor")
 }
 
 func GetAllAuthors (c *fiber.Ctx) error {
