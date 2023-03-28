@@ -28,6 +28,6 @@ func ValidateStruct (postBody interface{}) []*ErrorResponse {
 	return errors
 }
 
-type AuthorAddPostBody {
+type AuthorAddPostBody struct {
 	Title string `json:"title" validate:"required"`
 }
