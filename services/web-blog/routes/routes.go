@@ -63,7 +63,24 @@ func GetAllAuthors (c *fiber.Ctx) error {
 }
 
 func GetSingleAuthor (c *fiber.Ctx) error {
-	return c.SendString("Single Author")
+	id, _ := strconv.Atoi(c.Params("id"))
+
+	reposnse := utilities.GetBaseResponseObject()
+
+	author := &models.Authors{Id: id}
+
+	if err := database.Database.Orm.Read(author); err != nil {
+		response["error"] = err.Error()
+		if errors.Is(err, orm.ErrNoRows) {
+			response["message"] = "Author not found"
+			return c.Status(fiber.StatusNotFound).JSON(response)
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(response)
+	} else {
+		response["data"] = author
+		response["status"] = "OK"
+		return c.Status(fiber.StatusOK).JSON(response)
+	}
 }
 
 func DeleteAuthor (c *fiber.Ctx) error {
