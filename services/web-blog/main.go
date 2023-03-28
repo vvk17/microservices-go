@@ -13,9 +13,12 @@ func main() {
 	app.Get("/hello", func(c *fiber.Ctx) error {
 		return c.SendString("Hello World, 1")
 	})
+	
+	orm.RegisterModel(new(models.Authors))
+	log.Println("orm.RegisterModel - success")
+
 	database.ConnectDB()
 	log.Print("ConnectDB - success")
-	orm.RegisterModel(new(models.Authors))
-	log.Print("orm.RegisterModel - success")
+
 	log.Fatal(app.Listen(":3069"))
 }
