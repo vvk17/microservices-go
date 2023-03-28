@@ -15,7 +15,7 @@ var Database DBInstance
 
 func ConnectDB() {
 
-	var dnUrl = "postgresql://postgres:postgres@db:5432/web/mircroservice?sslmode=disable"
+	var dbUrl = "postgresql://postgres:postgres@db:5432/web/mircroservice?sslmode=disable"
     orm.RegisterDriver("postgres", orm.DRPostgres)
 
 	if err := orm.RegisterDataBase("default","postgres",dbUrl); err != nil {
