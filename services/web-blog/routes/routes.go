@@ -81,6 +81,7 @@ func GetSingleAuthor (c *fiber.Ctx) error {
 	} else {
 		response["data"] = author
 		response["status"] = "OK"
+		delete(response, "message")
 		return c.Status(fiber.StatusOK).JSON(response)
 	}
 }
