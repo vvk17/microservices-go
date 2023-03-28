@@ -19,10 +19,12 @@ func ConnectDB() {
     orm.RegisterDriver("postgres", orm.DRPostgres)
 
 	if err := orm.RegisterDataBase("default","postgres",dbUrl); err != nil {
+		log.Print("RefisterDataBase error:")
 		log.Fatal(err.Error())
 	}
 
 	if db, err := sql.Open("postgres", dbUrl); err != nil {
+		log.Print("sql.Open error:")
 		log.Fatal(err.Error())
 	} else {
 		Database = DBInstance{Db: db}
