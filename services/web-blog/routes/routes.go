@@ -9,6 +9,7 @@ import (
 	"log"
 	"github.com/beego/beego/v2/client/orm"
 	"strconv"
+	"errors"
 )
 
 func HelloMate (c *fiber.Ctx) error {
