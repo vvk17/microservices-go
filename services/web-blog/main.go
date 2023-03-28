@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"github.com/gofiber/fiber/v2"
-	"./database"
+	"github.com/vvk17/microservices-go/services/web-blog/database"
 )
 
 func main() {
