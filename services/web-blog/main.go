@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"github.com/joho/godotenv"
 	"log"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/gofiber/fiber/v2"
@@ -9,6 +11,10 @@ import (
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("Environment load error")
+		log.Println(err)
+	}
 	app := fiber.New()
 	app.Get("/hello", func(c *fiber.Ctx) error {
 		return c.SendString("Hello World, 1")
