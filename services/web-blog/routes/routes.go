@@ -6,6 +6,7 @@ import (
 	"github.com/vvk17/microservices-go/services/web-blog/utilities"
 	"github.com/vvk17/microservices-go/services/web-blog/models"
 	"github.com/vvk17/microservices-go/services/web-blog/database"
+	"log"
 )
 
 func HelloMate (c *fiber.Ctx) error {
