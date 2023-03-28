@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"os"
 	"log"
+	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/lib/pq"
 )
@@ -16,7 +17,7 @@ var Database DBInstance
 
 func ConnectDB() {
 
-	log.Println("pkg database: DB in use: postgresql://%s:%s@%s:%s/%s?sslmode=disable",
+	log.Printf("pkg database: DB in use: postgresql://%s:%s@%s:%s/%s?sslmode=disable",
 	 os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"),
 	 os.Getenv("DB_PORT"), os.Getenv("DB_NAME"))
 
@@ -26,7 +27,7 @@ func ConnectDB() {
     orm.RegisterDriver("postgres", orm.DRPostgres)
 
 	if err := orm.RegisterDataBase("default","postgres",dbUrl); err != nil {
-		log.Print("RefisterDataBase error:")
+		log.Println("pkg database: RegisterDataBase error:")
 		log.Fatal(err.Error())
 	}
 
