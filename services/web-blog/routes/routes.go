@@ -8,6 +8,7 @@ import (
 	"github.com/vvk17/microservices-go/services/web-blog/database"
 	"log"
 	"github.com/beego/beego/v2/client/orm"
+	"strconv"
 )
 
 func HelloMate (c *fiber.Ctx) error {
@@ -65,7 +66,7 @@ func GetAllAuthors (c *fiber.Ctx) error {
 func GetSingleAuthor (c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 
-	reposnse := utilities.GetBaseResponseObject()
+	response := utilities.GetBaseResponseObject()
 
 	author := &models.Authors{Id: id}
 
