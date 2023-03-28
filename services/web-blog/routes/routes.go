@@ -20,8 +20,8 @@ func AddAuthor (c *fiber.Ctx) error {
 
 	if err := c.BodyParser(postBody); err != nil {
 		response["error"] = err.Error()
-		log.Println("routes-AddAuthor BodyParser error", response)
-		return c.Status(fiber.StatusInternalServerError).JSON(response)
+		log.Println("routes-AddAuthor BodyParser error", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(err)
 	} else {
 		if err := validators.ValidateStruct(postBody); err != nil {
 			log.Println("routes-AddAuthor ValidateStruct error ", response)
