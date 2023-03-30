@@ -102,7 +102,7 @@ func DeleteAuthor (c *fiber.Ctx) error {
 				response["message"] = "No record found"
 				return c.Status(fiber.StatusNotFound).JSON(response)
 			} else {
-				response["mesasge"] = "Deleted successfully"
+				response["message"] = "Deleted successfully"
 				response["status"] = "OK"
 				return c.Status(fiber.StatusOK).JSON(response)
 			}
@@ -111,6 +111,27 @@ func DeleteAuthor (c *fiber.Ctx) error {
 }
 
 func UpdateAuthor (c *fiber.Ctx) error {
-	return c.SendString("Update Author")
+	response := utilities.GetBaseResponseObject()
+	postBody := &validators.AuthorUpdatePostBody{}
+
+	if err := utilities.PostBodyValidation(c, postBody); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(err)
+	} else {
+		author := &models.Authors{Id: postBody.Id, Title: postBody:Title}
+
+		if num, err := database.Database.Orm.Update(author); err != nil {
+			response["error"] = err.Error()
+			return c.Status(fiber.StatusInternalServerError).JSON(response)
+		} else {
+			if num == 0 {
+				response["message"] = "No record found for update"
+				return c.Status(fiber.StatusNotFound).JSON(response)
+			} else {
+				response["message"] = "Updated successfully"
+				response["status"] = "OK"
+				return c.Status(fiber.StatusOK).JSON(response)
+			}
+		}
+	}
 }
 
