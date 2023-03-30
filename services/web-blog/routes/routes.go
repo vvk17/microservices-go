@@ -87,7 +87,27 @@ func GetSingleAuthor (c *fiber.Ctx) error {
 }
 
 func DeleteAuthor (c *fiber.Ctx) error {
-	return c.SendString("Delete Author")
+	response := utilities.GetBaseResponseObject()
+	postBody := &validators.AuthorDeletePostBody{}
+
+	if err := utilities.PostBodyValidation(c, postBody); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(err)
+	} else {
+		author := &models.Authors{Id: postBody.Id}
+		if num, err := database.Database.Orm.Delete(author); err != nil {
+			response["error"] = err.Error()
+			return c.Status(fiber.StatusInternalServerError).JSON(response)
+		} else {
+			if num == 0 {
+				response["message"] = "No record found"
+				return c.Status(fiber.StatusNotFound).JSON(response)
+			} else {
+				response["mesasge"] = "Deleted successfully"
+				response["status"] = "OK"
+				return c.Status(fiber.StatusOK).JSON(response)
+			}
+		}
+	}
 }
 
 func UpdateAuthor (c *fiber.Ctx) error {
