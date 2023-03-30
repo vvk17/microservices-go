@@ -117,7 +117,7 @@ func UpdateAuthor (c *fiber.Ctx) error {
 	if err := utilities.PostBodyValidation(c, postBody); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	} else {
-		author := &models.Authors{Id: postBody.Id, Title: postBody:Title}
+		author := &models.Authors{Id: postBody.Id, Title: postBody.Title}
 
 		if num, err := database.Database.Orm.Update(author); err != nil {
 			response["error"] = err.Error()
